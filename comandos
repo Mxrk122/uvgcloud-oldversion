@@ -1,0 +1,17 @@
+Iniciar el ubuntu:
+docker-compose up --build
+
+--build - cuando hayan cambios en el Dockerfile
+
+/ en la carpeta backend
+
+conectarse al ubuntu:
+docker exec -it uvgcloudbackend /bin/bash
+
+// repo
+clonar
+
+contenedor -- FastAPI -- Dockerfile
+contenedor -- postgress -- Dockerfile
+contenedor -- openstack (kola ansible o iamgend e docker) -- Dockerfile
+
