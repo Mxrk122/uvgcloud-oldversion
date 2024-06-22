@@ -1,17 +1,7 @@
-Iniciar el ubuntu:
-docker-compose up --build
+Iniciar vm de ubuntu:
 
---build - cuando hayan cambios en el Dockerfile
+en caso de fallos, regresar a un snap o reinstalar todo de nuevo
 
-/ en la carpeta backend
+configurar voirtual box para que el puerto de mi pc sea el puerot 80 de la vm y ahi se hospeda openstack
 
-conectarse al ubuntu:
-docker exec -it uvgcloudbackend /bin/bash
-
-// repo
-clonar
-
-contenedor -- FastAPI -- Dockerfile
-contenedor -- postgress -- Dockerfile
-contenedor -- openstack (kola ansible o iamgend e docker) -- Dockerfile
-
+acceder a localhost:8000 para ver horizon

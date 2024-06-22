@@ -1,0 +1,3 @@
+Conectarme a postgres corriendo desde docker
+
+docker exec -it server-db-1 psql -U postgres -d mydatabase
