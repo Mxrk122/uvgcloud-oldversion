@@ -5,3 +5,9 @@ en caso de fallos, regresar a un snap o reinstalar todo de nuevo
 configurar voirtual box para que el puerto de mi pc sea el puerot 80 de la vm y ahi se hospeda openstack
 
 acceder a localhost:8000 para ver horizon
+
+acceder a contenedor python:
+docker exec -it backend-backend-1 bash   
+
+acceder a psotgres:
+docker exec -it backend-db-1 psql -U postgres -d mydatabase

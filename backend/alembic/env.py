@@ -4,14 +4,16 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+
+# Añade el directorio de tu aplicación a sys.path
 import os
 import sys
 
-# Añade el directorio de tu aplicación a sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../app')))
+app_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../app'))
+print(f"App path: {app_path}")
+sys.path.append(app_path)
 
-
-from app.models import Base  # Asegúrate de que esto importe correctamente tus modelos
+from models import Base  # Asegúrate de que esto importe correctamente tus modelos
 
 # Configura Alembic
 config = context.config
