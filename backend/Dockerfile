@@ -16,14 +16,18 @@ COPY ./alembic /project/alembic
 COPY alembic.ini /project/alembic.ini
 
 # Copia el script para esperar a la base de datos
-COPY wait_for_db.sh /project/wait_for_db.sh
-RUN chmod +x /project/wait_for_db.sh
+# COPY wait_for_db.sh /project/wait_for_db.sh
+# RUN chmod +x /project/wait_for_db.sh
 
 # Ejecuta las migraciones con Alembic
 # RUN alembic -c /project/alembic.ini upgrade head
 
-# Expone el puerto de la aplicación
-EXPOSE 8000
+COPY start.sh project/start.sh
+
+RUN chmod +x project/start.sh
+
+CMD ["./project/start.sh"]
+
 
 # Comando para ejecutar la aplicación
-CMD ["./wait_for_db.sh", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload", "--reload-dir", "/project/app"]
+# CMD ["./wait_for_db.sh", "uvicorn", "app.main:app", "--host", "localhost", "--port", "8080", "--reload", "--reload-dir", "/project/app"]

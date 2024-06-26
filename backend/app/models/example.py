@@ -1,7 +1,7 @@
 # models/users.py
 
 from sqlalchemy import Column, Integer, String
-from db.base import Base  # Asegúrate de que la importación sea correcta
+from app.db.base import Base  # Asegúrate de que la importación sea correcta
 
 class Example(Base):
     __tablename__ = 'example'
@@ -11,4 +11,5 @@ class Example(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, index=True)
     password = Column(String, index=True)
+    
         

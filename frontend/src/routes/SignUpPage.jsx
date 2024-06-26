@@ -3,11 +3,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Box, FormControl, FormLabel, Input, Button, Flex, Image, Text } from '@chakra-ui/react'
 import DataBeatsLogo from '../assets/images/DataBeatsLogo.png'
 
+
 const SignUpPage = () => {
-  const [username, setUsername] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [origin, setOrigin] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -17,19 +15,12 @@ const SignUpPage = () => {
     event.preventDefault()
     if (password === confirmPassword) {
 
-      const information = {
-        firstName,
-        lastName,
-        origin
-      }
-
       const user = {
-        username,
-        information,
+        email,
         password
       }
 
-      const response = await fetch('http://localhost:4000/users', {
+      const response = await fetch('http://localhost:8080/users/create_user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,12 +61,12 @@ const SignUpPage = () => {
       </Flex>
       <form>
         <FormControl mb={8}>
-          <FormLabel htmlFor="username" fontSize="lg" color="gray.600">Username</FormLabel>
+          <FormLabel htmlFor="email" fontSize="lg" color="gray.600">email</FormLabel>
           <Input
-            id="username"
+            id="email"
             type="text"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
             rounded="lg"
             w="100%"
             bg="gray.200"
@@ -83,48 +74,7 @@ const SignUpPage = () => {
             _focus={{ bg: "white", boxShadow: "outline" }}
           />
         </FormControl>
-        <FormControl mb={8}>
-          <FormLabel htmlFor="firstName" fontSize="lg" color="gray.600">First Name</FormLabel>
-          <Input
-            id="firstName"
-            type="text"
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
-            rounded="lg"
-            w="100%"
-            bg="gray.200"
-            p={4}
-            _focus={{ bg: "white", boxShadow: "outline" }}
-          />
-        </FormControl>
-        <FormControl mb={8}>
-          <FormLabel htmlFor="lastName" fontSize="lg" color="gray.600">Last Name</FormLabel>
-          <Input
-            id="lastName"
-            type="text"
-            value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
-            rounded="lg"
-            w="100%"
-            bg="gray.200"
-            p={4}
-            _focus={{ bg: "white", boxShadow: "outline" }}
-          />
-        </FormControl>
-        <FormControl mb={8}>
-          <FormLabel htmlFor="origin" fontSize="lg" color="gray.600">Pais de origen</FormLabel>
-          <Input
-            id="origen"
-            type="text"
-            value={origin}
-            onChange={(event) => setOrigin(event.target.value)}
-            rounded="lg"
-            w="100%"
-            bg="gray.200"
-            p={4}
-            _focus={{ bg: "white", boxShadow: "outline" }}
-          />
-        </FormControl>
+        
         <FormControl mb={8}>
           <FormLabel htmlFor="password" fontSize="lg" color="gray.600">Password</FormLabel>
           <Input

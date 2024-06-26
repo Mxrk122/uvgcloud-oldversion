@@ -3,30 +3,32 @@ from fastapi import FastAPI
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from app.db.base import Base
+from app.db.session import engine
+from app.routes import users
+from fastapi.middleware.cors import CORSMiddleware
+
+# Crear las tablas en la base de datos
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# Database setup
-DATABASE_URL = "postgresql://postgres:password@db:5432/mydatabase"
-engine = None
+# Configurar CORS
+origins = [
+    "http://localhost",
+    "http://localhost:666",  # Agrega aquí la URL de tu frontend en React
+]
 
-# Function to check if PostgreSQL is ready
-def check_postgres():
-    try:
-        engine = create_engine(DATABASE_URL)
-        with engine.connect():
-            print("Connected to PostgreSQL!")
-            return engine
-    except Exception as e:
-        print(f"PostgreSQL is not ready yet: {e}")
-        return None
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
 
-# Wait until PostgreSQL is ready
-while not (engine := check_postgres()):
-    time.sleep(1)  # Wait for 1 second before retrying
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+# Montar las rutas de los usuarios
+app.include_router(users.router, prefix="/users", tags=["users"])
 
 # Example route
 @app.get("/")

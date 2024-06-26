@@ -1,14 +1,10 @@
-# models/users.py
-
-from sqlalchemy import Column, Integer, String
-from db.base import Base  # Asegúrate de que la importación sea correcta
+import uuid
+from sqlalchemy import Column, String
+from sqlalchemy.dialects.postgresql import UUID
+from app.db.base import Base
 
 class User(Base):
     __tablename__ = 'Users'
-    
-    __table_args__ = {'extend_existing': True}  # <-- Añade esta línea
-
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, index=True)
-    password = Column(String, index=True)
-        
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    password = Column(String)

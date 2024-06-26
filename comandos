@@ -11,3 +11,10 @@ docker exec -it backend-backend-1 bash
 
 acceder a psotgres:
 docker exec -it backend-db-1 psql -U postgres -d mydatabase
+
+postgres es sensible a uppercases, usar comillas
+
+Realizar migraciones en alembic!!!!
+
+\dt
+\q

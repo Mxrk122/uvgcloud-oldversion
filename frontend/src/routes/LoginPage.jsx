@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react'
 
 const LoginPage = ({ handleFavorites }) => {
-  const [users, setUsers] = useState()
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
 
