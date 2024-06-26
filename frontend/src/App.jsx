@@ -55,7 +55,7 @@ const App = () => {
   
   return (<Routes>
     <Route path="/" element={<LoginPage handleFavorites={handleFavorites}/>} />
-    <Route path="/vynils" element={<MainPage viewVinil={viewVynil} setAggregation={setAggregation} filter={filter} setFilter={setFilter} />} />
+    <Route path="/main" element={<MainPage viewVinil={viewVynil} setAggregation={setAggregation} filter={filter} setFilter={setFilter} />} />
     <Route path="/login" element={<LoginPage handleFavorites={handleFavorites} />} />
     <Route path="/sign-up" element={<SignUpPage />} />
 

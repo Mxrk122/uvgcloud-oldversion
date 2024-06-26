@@ -22,5 +22,12 @@ def get_user(db: Session, user_id: uuid.UUID) -> User:
 def get_user_by_email(db: Session, email: str) -> User:
     return db.query(User).filter(User.email == email).first()
 
+def authenticate_user(db: Session, email: str, password: str) -> User:
+    user = get_user_by_email(db, email)
+    if user and verify_password(password, user.password):
+        return user
+    return None
+
 # UPDATE
+
 # DELETE

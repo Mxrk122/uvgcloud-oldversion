@@ -18,3 +18,4 @@ Realizar migraciones en alembic!!!!
 
 \dt
 \q
+SELECT * FROM nombre_de_la_tabla;

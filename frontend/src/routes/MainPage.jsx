@@ -12,18 +12,10 @@ const MainPage = ({ viewVinil, setAggregation, filter, setFilter }) => {
 
     // busqueda cuando cambia el filtro
     useEffect(() => {
-        const getVynils = async () => {
-          const response = await fetch('http://localhost:4000/vynils/' + filter)
-          const data = await response.json()
-          setVynils(data)
-        }
-        getVynils()
-    }, [filter])
-
-    const handleChoose = (vynil) => {
-        viewVinil(vynil)
-        navigate("../viewVynil")
-    }
+      if (user === null){
+        navigate("/login")
+      }
+    }, [])
 
     //Lógica de cómo sería obtener los filtros de la base de datos
     const handleOnCheckbox = (e) => { 
@@ -74,8 +66,6 @@ const MainPage = ({ viewVinil, setAggregation, filter, setFilter }) => {
             borderBottomColor='gray.200'
             bgColor={"#ffca38"}
         >
-        {(user.admin) ? <Button as={Link} to="/create">Añadir un vinilo</Button> : null}
-        {(user.admin) ? <Button as={Link} to="/charts">Ver charts</Button> : null}
         <Flex
             align='center'
             justifyContent='space-between'
@@ -153,47 +143,6 @@ const MainPage = ({ viewVinil, setAggregation, filter, setFilter }) => {
             >
                 Catálogo 
             </Heading>
-        <HStack
-          w='100%'
-          maxW='auto'
-          d='flex'
-          flexWrap='wrap'
-          justifyContent='center'
-          alignItems='center'
-          m='5px'
-        >
-          {vynils.map((vinilo) => (
-            <Box
-              key={vinilo._id}
-            m='5px'
-              onClick={() => handleChoose(vinilo)}
-              cursor='pointer'
-              borderWidth='1px'
-              borderRadius='lg'
-              borderColor='gray.200'
-              w='250px'
-              h='400px'
-              display='flex'
-              flexDirection='column'
-              alignItems='center'
-              justifyContent='center'
-              boxShadow="md"
-            bgColor = {'#FFFFFF'}
-            
-            
-            >
-              <Image
-                w='200px'
-                h='200px'
-              src={vinilo.img} alt={vinilo.name} />
-              <Heading as='h1'
-                fontSize='xl'
-              >{vinilo.name}</Heading>
-              <Text fontWeight='medium'>{vinilo.artist}</Text>
-              <Text fontWeight='light'>{vinilo.year}</Text>
-            </Box>
-          ))}
-        </HStack>
       </Box>
       <Box as='footer'
         w='auto'

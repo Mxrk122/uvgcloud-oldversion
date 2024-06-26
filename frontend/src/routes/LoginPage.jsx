@@ -15,41 +15,42 @@ import {
 } from '@chakra-ui/react'
 
 const LoginPage = ({ handleFavorites }) => {
-  const [username, setUsername] = useState()
+  const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+  const [error, setError] = useState(null);
 
   // Contexto para adquirir y proveer el usuario a las demas paginas
   const { user, setUser } = React.useContext(UserContext)
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    // Esto se debe hacer en el backend
-    const getUsers = async () => {
-      const response = await fetch('http://localhost:4000/users')
-      const data = await response.json()
-      setUsers(data)
-    }
-    getUsers()
-    console.log("hey")
-  }, [])
+  const handleLogin = async (event) => {
+    event.preventDefault();
 
-  const handleLogin = (event) => {
-    event.preventDefault()
-    const user = users.find((user) => user.username === username)
-    if (user) {
-      if (user.password === password) {
-        
-        handleFavorites(user.favorites)
-        setUser(user)
-        navigate('/vynils')
-      } else {
-        console.log('Wrong password')
-      }
-    } else {
-      console.log('User not found')
+    const user = {
+      email,
+      password
     }
-  }
+
+    const response = await fetch('http://localhost:8080/users/login/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log("registro logrado!")
+        setUser(data)
+        navigate("/main")
+    } else {
+        const errorData = await response.json();
+        console.log(errorData.detail)
+        setError(errorData.detail);
+    }
+};
 
   return (
     <Flex 
@@ -67,12 +68,12 @@ const LoginPage = ({ handleFavorites }) => {
             <Heading as="h1" textAlign="center" m={6}>¡Bienvenido a Data Beats!</Heading>
           </Box>
           <FormControl>
-            <FormLabel htmlFor="username" fontSize="lg" color="gray.600">Usuario</FormLabel>
+            <FormLabel htmlFor="email" fontSize="lg" color="gray.600">Usuario</FormLabel>
             <Input
               type="text"
-              id="username"
-              placeholder="Username"
-              onChange={(event) => setUsername(event.target.value)}
+              id="email"
+              placeholder="email"
+              onChange={(event) => setEmail(event.target.value)}
               rounded="lg"
               w="100%"
               mt={4}
