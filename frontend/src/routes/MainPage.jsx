@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate} from 'react-router-dom'
 import { UserContext } from '../context/userContextProvider'
 import { Box, Heading, Image, Text, Flex, Button, HStack, Radio } from '@chakra-ui/react'
+import "../styles/main.css"
 //Creamos un main donde se pondrá el array de los vinilos con un formato json
-const MainPage = ({ viewVinil, setAggregation, filter, setFilter }) => {
+const MainPage = () => {
     const navigate = useNavigate()
-    //Creamos un array de tipo JSON con los datos de los vinilos
-    const [vynils, setVynils] = useState([])
 
     const { user } = React.useContext(UserContext)
 
@@ -17,37 +16,19 @@ const MainPage = ({ viewVinil, setAggregation, filter, setFilter }) => {
       }
     }, [])
 
-    //Lógica de cómo sería obtener los filtros de la base de datos
-    const handleOnCheckbox = (e) => { 
-        switch (e) {
-            case 'name':
-                setFilter("name")
-                break;
-            case 'artist':
-                setFilter("artist")
-                break;
-            case 'year':
-                setFilter("year")
-                break;
-            case 'rating':
-                console.log("rating")
-                break;
-            case 'comment':
-                console.log("comment")
-                break;
-            default:
-                break;
-        }
-    }
-            // segun el criterio que aparezca el usuario podraa seleccionar una agregación especifica
-            // por default esta sera favoritos
-    const handleAggregation = (option) => {
-                if (option === "favorites"){
-                    setAggregation("favorites")
-                }
-    }
+    const handleClick = async (event) => {
+      const response = await fetch('http://localhost:8080/commands/do_command', {
+        method: 'GET',
+      });
 
-
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+      } else {
+          const errorData = await response.json();
+          console.log(errorData.detail)
+      }
+    }
 
     return (
         <Box as= 'main'
@@ -56,76 +37,6 @@ const MainPage = ({ viewVinil, setAggregation, filter, setFilter }) => {
 
         
         >
-        <Flex
-            align='center'
-            justify='space-between'
-            w='auto'
-            px='10'
-            py='5'
-            borderBottomWidth='1px'
-            borderBottomColor='gray.200'
-            bgColor={"#ffca38"}
-        >
-        <Flex
-            align='center'
-            justifyContent='space-between'
-            w='auto'
-            px='8'
-            py='5'
-            bgColor={"#ffca38"}
-        >
-            <Heading as='h4'
-            mr='10px'
-            >Filtrar por:</Heading>
-            <Box
-            d='flex'
-            alignItems='center'
-            justifyContent='center'
-            flexDirection='row'
-            bgColor={"#ffca38"}
-            >
-                <Button 
-                d='flex'
-                alignItems='center'
-                justifyContent='center'
-                flexDirection='row'
-                bgColor={"#ffca38"}
-                onClick={() => handleOnCheckbox("name")}
-                >Nombre</Button>
-
-                <Button 
-                d='flex'
-                alignItems='center'
-                justifyContent='center'
-                flexDirection='row'
-                bgColor={"#ffca38"}
-                onClick={() => handleOnCheckbox("artist")}
-                >Artista</Button>
-
-                <Button 
-                d='flex'
-                alignItems='center'
-                justifyContent='center'
-                flexDirection='row'
-                bgColor={"#ffca38"}
-                onClick={() => handleOnCheckbox("year")}
-                >Año</Button>
-            </Box>
-            
-        </Flex>
-
-        <Button as={Link} to="/user">
-                Mi usuario
-        </Button>
-
-        <Button onClick={() => handleAggregation("favorites")} as={Link} to="/SectionPage">
-                Ver Favoritos
-        </Button>
-
-        </Flex>
-        
-        
-
 
         <Box
             mt='30spx'
@@ -141,9 +52,12 @@ const MainPage = ({ viewVinil, setAggregation, filter, setFilter }) => {
             textAlign='center'
             mb='5'
             >
-                Catálogo 
+                UVG CLOUD 
             </Heading>
       </Box>
+      <div className='selections'>
+        <h1 className='button' onClick={handleClick}>REalizar comando ls</h1>
+      </div>
       <Box as='footer'
         w='auto'
         h='auto'
