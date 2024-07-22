@@ -19,3 +19,11 @@ Realizar migraciones en alembic!!!!
 \dt
 \q
 SELECT * FROM nombre_de_la_tabla;
+
+Comandos openstack:
+ver ip
+openstack server show my-instance -c addresses -f value
+
+ver posibles errores
+sudo snap services microstack
+ sudo journalctl -u snap.microstack.neutron* -r

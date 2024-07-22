@@ -23,3 +23,19 @@ services:
       DATABASE_URL: postgresql://postgres:password@db:5432/mydatabase
     volumes:
       - ./app:/project/app
+  
+  # openstack-client:
+  #   image: openstacktools/openstack-client
+  #   container_name: openstack-client
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - OS_AUTH_URL=http://localhost:5000/v3
+  #     - OS_IDENTITY_API_VERSION=3
+  #     - OS_PROJECT_NAME=devenv
+  #     - OS_PROJECT_DOMAIN_NAME=default
+  #     - OS_USERNAME=admin
+  #     - OS_USER_DOMAIN_NAME=cool
+  #     - OS_PASSWORD=secret
+  #   tty: true
+  #   stdin_open: true

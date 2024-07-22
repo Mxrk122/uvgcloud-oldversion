@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from app.db.base import Base
 from app.db.session import engine
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import users, commands
+from app.routes import users, cloud_machines
 
 # Crear las tablas en la base de datos
 Base.metadata.create_all(bind=engine)
@@ -31,7 +31,7 @@ app.add_middleware(
 app.include_router(users.router, prefix="/users", tags=["users"])
 
 # Montar las rutas de los comandos
-app.include_router(commands.router, prefix="/commands", tags=["commands"])
+app.include_router(cloud_machines.router, prefix="/cloud_machines", tags=["cloud_machines"])
 
 # Example route
 @app.get("/")
