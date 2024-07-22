@@ -9,6 +9,8 @@ const MainPage = () => {
 
     const { user } = React.useContext(UserContext)
 
+    const [result, setResult] = useState(null);
+
     // busqueda cuando cambia el filtro
     useEffect(() => {
       if (user === null){
@@ -17,12 +19,13 @@ const MainPage = () => {
     }, [])
 
     const handleClick = async (event) => {
-      const response = await fetch('http://localhost:8080/commands/do_command', {
+      const response = await fetch('http://localhost:8080/cloud_machines/do_command/', {
         method: 'GET',
       });
 
       if (response.ok) {
         const data = await response.json();
+        setResult[data]
         console.log(data)
       } else {
           const errorData = await response.json();
@@ -57,6 +60,7 @@ const MainPage = () => {
       </Box>
       <div className='selections'>
         <h1 className='button' onClick={handleClick}>REalizar comando ls</h1>
+        <p>{result}</p>
       </div>
       <Box as='footer'
         w='auto'
